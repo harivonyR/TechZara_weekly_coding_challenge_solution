@@ -1,18 +1,4 @@
-
-// Arrays are already defined :
-// typedef struct arr_##name {
-//   int size;
-//   type *arr;
-// } arr_##name;
-//
-// arr_##name alloc_arr_##name(int len) {
-//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
-//   return a;
-// }
-//
-//
-
-/*
+/*TzWccS1PizzaSellerHaveChange:
 
 You are a seller at Gastro Pizza , each pizza costs 5Ar.
 

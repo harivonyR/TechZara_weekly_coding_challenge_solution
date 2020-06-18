@@ -1,0 +1,41 @@
+
+// Arrays are already defined :
+// typedef struct arr_##name {
+//   int size;
+//   type *arr;
+// } arr_##name;
+//
+// arr_##name alloc_arr_##name(int len) {
+//   arr_##name a = {len, len > 0 ? malloc(sizeof(type) * len) : NULL};
+//   return a;
+// }
+//
+//
+
+bool TzWccS1PizzaSellerHaveChange(arr_integer bills) {
+
+    int billsFiveRemain = 0;
+    for(int i=0; (i<bills.size);i++)
+    {
+        if (bills.arr[i]==5)
+        {
+            billsFiveRemain ++ ;
+            bills.arr[i]=0;
+        }
+
+        else if(bills.arr[i]>5) 
+        {
+            if (billsFiveRemain==0) 
+                return false;
+            bills.arr[i] = bills.arr[i] - 5;
+            billsFiveRemain ++;
+
+            for (int j=1;(j<=billsFiveRemain)||(bills.arr[i]==0);j++)
+            {
+                bills.arr[i] = bills.arr[i] - 5;
+                billsFiveRemain -- ;
+            }                
+        }
+        else return (-1);
+    }
+}

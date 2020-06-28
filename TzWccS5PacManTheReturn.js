@@ -1,76 +1,74 @@
 /*
-Here's an 8 × 8 picture of a house:
-https://i.gyazo.com/9852a22588649875e7e51bfdffb9c460.png
+Pac-Man got lucky today! Due to minor performance issue all his enemies have frozen. Too bad Pac-Man is not brave enough to face them right now, so he doesn't want any enemy to see him. Given a gamefield of size NxN, Pac-Man's and his enemies' positions, count the number of coins he can collect without being seen.
+An enemy can see a Pac-Man if they are standing on the same row or column. It is guaranteed that no enemy can see Pac-Man on the starting position. There is a coin on each empty square (i.e. where there is no Pac-Man nor enemy).
 
-This house can be represented as a matrix of pixels:
+Grid axis:
+For N = 4
+[0, 0] represents the top left corner
+[0, 3] the top right corner
+[3, 3] the bottom right corner
+[3, 0] the bottom left corner
 
-house = ["bwwbbbbb",
-         "bbbbbyyb",
-         "bbrbbyyb",
-         "brrrbbbb",
-         "rrrrrbbb",
-         "brrrbbbb",
-         "brrrbbbb",
-         "gggggggg"]
-where each pixel is encoded with its color. Here're all possible colors:
+Example
+Let O represent coins, P Pac-Man and E the enemies.
+N = 4, P = [3, 0], E = [[1, 2]]
 
-'b': blue
-'g': green
-'r': red
-'y': yellow
-'w': white
-Given a rectangle of pixels, determine if it matches 1 or more subsections of this image, and return the locations of those subsections (i.e. their top left positions).
-
-Example:
-
-For
-pixels = ["bby",
-          "rbb"]
-the output will be [[2, 3]]
-
-This image has one match with the original image at y = 2 and x = 3, so the answer is [[2,3]].
-
-For pixels = ["w","b"], the output will be [[0,1],[0,2]]. This pixels has two matches.
-If pixels doesn't match with any subsections of the house, return empty array
+O O O O
+O O E O
+O O O O
+P O O O
+The answer to the given example is 3, as Pac-Man cannot cross row 1 and column 2. He can only collect coins from points (2, 0), (2, 1) and (3, 1).
 
 [execution time limit] 4 seconds (js)
 
-[input] array.string pixels
+[input] integer n
+field size
 
-A non-empty array of strings representing a rectangular image, where each string represents a row of pixels. Each pixel is represented as stated in the description.
+[input] array.integer p
+Pac-Man position (pair of integers)
 
-[output] array.array.integer
+[input] array.array.integer enemies
+Enemies' positions (array of pairs)
 
-A sorted array of top-left pixels of the image areas that match the pixels.
-
+[output] integer
+Number of coins Pac-Man can collect
 */
 
-function TzWccS5TheHouse(pixels) {
-var house = new Array ;
-    house = ["bwwbbbbb",
-         "bbbbbyyb",
-         "bbrbbyyb",
-         "brrrbbbb",
-         "rrrrrbbb",
-         "brrrbbbb",
-         "brrrbbbb",
-         "gggggggg"];
-         
-var tmp = new Array;
-var ans = new Array;
-
-
-for (var j=0 ; j<=8-pixels.length;j++)
+function TzWccS5PacManTheReturn(n, p, enemies) {
+if(enemies.length>0)
 {
-    for (var i=0; i<=8-pixels[0].length;i++)
-        {       
-            for (var y=j;y<j+pixels.length;y++)
-            {
-                tmp[y-j] = house[y].slice(i,i+pixels[0].length); 
-            }
-            if (tmp.toString()==pixels.toString())ans.push([j,i]);
-            }
+    var long=1;
+    var larg=1;
+    function check (pos)
+    {
+        if ((pos[0]<n)&&(pos[1]<n)&&(pos[0]>=0)&&(pos[1]>=0))
+        {
+        for (var i=0; i<enemies.length; i++)
+        {
+            if((pos[1]==(enemies[i][1])||(pos[0]==enemies[i][0]))) return 0;
         }
-    return (ans);
+        return 1;
+        }
+        return 0;
+    }
+    
+    for (var i=1;(check([p[0],p[1]+i]));i++)
+    {
+        long += 1;
+    }
+    for (var i=-1;(check([p[0],p[1]+i]));i--)
+    {
+        long += 1;
+    }
+    for (var j=1;(check([p[0]+j,p[1]]));j++)
+    {
+        larg += 1;
+    }
+    for (var j=-1;(check([p[0]+j,p[1]]));j--)
+    {
+        larg += 1;
+    }
+    return ((long*larg)-1);
 }
-
+else return (n*n-1);
+}

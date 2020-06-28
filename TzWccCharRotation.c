@@ -32,17 +32,13 @@ It is impossible to convert the third String into first two Strings by using abo
 [execution time limit] 1 seconds (c)
 
 [input] integer n
-
 1 ≤ n < 10
 
 [input] array.string arrayStringToRotate
-
 Lengths of each strings are equal.
-
 Lengths of each string is positive and does NOT exceed 50.
 
 [output] integer
-
 The minimal number of rotations required in order to make all the strings equal.
 */
 
@@ -51,8 +47,6 @@ The minimal number of rotations required in order to make all the strings equal.
 
 int TzWccCharRotation(int n, arr_string arrayStringToRotate) 
 {
-
-
 int lengthWord = strlen(arrayStringToRotate.arr[0]);
 char *tmp = malloc (sizeof(char)*lengthWord);
 
@@ -69,22 +63,21 @@ void rotate (char *word)
 }
 
 
-int i,min=(n*n);
+int i,min=(n*n);//can find a better minimum
 int *counter = malloc (sizeof(int)*n);
 for (i=0; i<n;i++)
 {
     int j;
     for (j=0;j<n;j++)
         {
-            int tentative = 0;
+            int attempt = 0;
             strcpy(tmp,arrayStringToRotate.arr[j]);
             while(strcmp(arrayStringToRotate.arr[i],tmp))
             {
             rotate(tmp);
-            printf("-i-");
             counter[i]=counter[i]+1;
-            tentative = tentative + 1;
-            if (tentative > lengthWord ) return(-1);
+            attempt = attempt + 1;
+            if (attempt > lengthWord ) return(-1);
             }           
         } 
     if(counter[i]<min)min=counter[i];

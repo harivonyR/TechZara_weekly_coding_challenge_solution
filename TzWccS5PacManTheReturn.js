@@ -44,3 +44,33 @@ A non-empty array of strings representing a rectangular image, where each string
 A sorted array of top-left pixels of the image areas that match the pixels.
 
 */
+
+function TzWccS5TheHouse(pixels) {
+var house = new Array ;
+    house = ["bwwbbbbb",
+         "bbbbbyyb",
+         "bbrbbyyb",
+         "brrrbbbb",
+         "rrrrrbbb",
+         "brrrbbbb",
+         "brrrbbbb",
+         "gggggggg"];
+         
+var tmp = new Array;
+var ans = new Array;
+
+
+for (var j=0 ; j<=8-pixels.length;j++)
+{
+    for (var i=0; i<=8-pixels[0].length;i++)
+        {       
+            for (var y=j;y<j+pixels.length;y++)
+            {
+                tmp[y-j] = house[y].slice(i,i+pixels[0].length); 
+            }
+            if (tmp.toString()==pixels.toString())ans.push([j,i]);
+            }
+        }
+    return (ans);
+}
+
